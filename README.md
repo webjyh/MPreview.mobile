@@ -14,7 +14,8 @@
 ```html
 <!-- Load MPreview CSS && JS -->
 <link rel="stylesheet" type="text/css" href="css/MPreview.mobile.css"/>
-<script type="text/javascript" src="js/MPreview.mobile.min.js"></script>
+<script type="text/javascript" src="js/quo.js"></script>
+<script type="text/javascript" src="js/MPreview.mobile.js"></script>
 
 <!-- 用于显示组件的容器 -->
 <div class="overlay" id="overlay"></div>
@@ -26,6 +27,8 @@ MPreview({
     wrap: '#overlay',
 });
 </script>
+
+PS: 如果引用的是 `MPreview.mobile.min.js`，则无需在引用 QuoJS 手势库，因为 `MPreview.mobile.min.js` 打包时一并把 `QuoJS` 打包进来了。
 ```
 
 ## API

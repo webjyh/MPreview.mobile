@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    <title>MPreview - 移动端图片预览组件，支持手势缩放，双击放大，缩小</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+
+    <!-- MPreview.mobeile CSS && JS -->
+    <link rel="stylesheet" type="text/css" href="css/MPreview.mobile.css"/>
+    <script type="text/javascript" src="js/MPreview.mobile.min.js"></script>
+    <!-- MPreview.mobeile CSS && JS -->
+	
+    <!-- Demo CSS Start -->
+    <style type="text/css">
+    body { background-color: #F7F7F7; color: #414243; font-size: 16px; line-height: 1.7; font-weight: 400; font-family: 'Open Sans','Helvetica Neue',Arial,'Hiragino Sans GB','Microsoft YaHei', sans-serif; overflow-x: hidden; }
+    a { color: #225d99; text-decoration: none; }
+    .title { margin: 0; font-size: 16px; line-height: 44px; text-align: center; font-weight: normal; box-shadow: 0 1px 6px #ccc; background-color: #F7F7F7; height: 44px; padding: 0px 10px; }
+    .img-list { list-style: none; padding: 0; margin: 0; }
+    .img-list:after { display: table; content: " "; }
+    .img-list > li { box-sizing: border-box; padding: 10px; position: relative; float: left; width: 50%; }
+    .img-list > li img { width: 100%; height: 100%; vertical-align: top; }
+    .img-list > li > a { display: block; }
+    .img-list > li > span { font-size: 14px; padding: 0px 10px; position: absolute; bottom: 15px; right: 20px; border-radius: 3px; background: rgba(37,37,37,0.6); color: #fff; }
+    .img-list > li:first-child { padding-right: 5px; }
+    .img-list > li:last-child { padding-left: 5px; }
+    .img-list > li:first-child span { right: 15px; }
+    .overlay { background: #000; width: 100%; height: 100%; overflow: hidden; position: fixed; top: 0; left: 0; z-index: 99;
+        -webkit-transition: all 300ms ease-in 0s;
+                transition: all 300ms ease-in 0s;
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+		-webkit-transform: translate3d(100%, 0px, 0px); 
+			transform: translate3d(100%, 0px, 0px);
+    }
+    .overlay.in { 
+		-webkit-transform: translate3d(0px, 0px, 0px); 
+				transform: translate3d(0px, 0px, 0px);
+	}
+    </style>
+    <!-- Demo CSS End -->
+</head>
+<body>
+    <h1 class="title">MPreview 移动端图片预览组件</h1>
+    <ul class="img-list">
+        <li>
+            <a href="javascript:;" title=""><img src="http://7jpp73.com1.z0.glb.clouddn.com/1.jpg?imageView2/1/w/400/h/400" alt="" /></a>
+            <span>风景-10张</span>
+        </li>
+        <li>
+            <a href="javascript:;" title=""><img src="http://7jpp73.com1.z0.glb.clouddn.com/M_1.jpg?imageView2/1/w/400/h/400" alt="" /></a>
+            <span>妹子-10张</span>
+        </li>
+    </ul>
+    <ol>
+		<li>本页面只适用于手机端查看</li>
+        <li>点击图片查看组件</li>
+        <li>PC版请移步 <a href="https://github.com/webjyh/MPreview" target="_blank">[这里]</a></li>
+        <li>GitHub地址 <a href="https://github.com/webjyh/MPreview.mobile" target="_blank">[这里]</a></li>
+        <li>作者Blog <a href="http://webjyh.com" target="_blank">http://webjyh.com</a></li>
+    </ol>
+	
+	<!-- 用于展示插件的容器 -->
+    <div class="overlay" id="overlay"></div>
+</body>
+
+
+<script type="text/javascript">
+	// Demo JS
+    var imgHost = 'http://7jpp73.com1.z0.glb.clouddn.com/',
+        direction = window.location.href.indexOf('left') > -1 ? 'left' : 'top',
+        elem = document.querySelectorAll('ul > li'),
+        wrap = document.querySelector('#overlay');
+
+    for (var i = 0, len = elem.length; i < len; i++) {
+        elem[i].index = i;
+        elem[i].addEventListener('touchstart', function(e) {
+            e.preventDefault();
+
+            var ext = this.index === 0 ? '' : 'M_',
+                title = this.index === 0 ? '风景' : '妹子',
+                data = [];
+
+            for (var i = 1; i <= 10; i++) {
+                data.push(imgHost + ext + i +'.jpg');
+            }
+
+            wrap.className = wrap.className + ' in';
+
+            // 延迟初始化插件是为了让CSS动画走完
+            setTimeout(function() {
+                MPreview({
+                    data: data,
+                    title: title,
+                    direction: direction,
+                    wrap: '#overlay',
+                    init: function() {
+                        window.console && console.log('MPreview.mobile init');
+                    },
+                    close: function() {
+                        wrap.className = wrap.className.replace(' in', '');
+                    }
+                });
+            }, 400);
+
+        }, false);
+    }
+</script>
+</html>
