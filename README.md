@@ -3,7 +3,7 @@
 
 ## Demo 预览 (扫一扫)
 
-![图片左右切换](http://7jpp73.com1.z0.glb.clouddn.com/qr_code_left.png)　![图片上下切换](http://7jpp73.com1.z0.glb.clouddn.com/qr_code_top.png)
+![图片左右切换](http://gitphoto.webjyh.com/qr_code_left.png)　![图片上下切换](http://gitphoto.webjyh.com/qr_code_top.png)
 
 ## 插件说明
 1. 插件依赖 [QuoJS](https://github.com/soyjavi/quojs)，一款移动端的手势库。
